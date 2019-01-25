@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.1.2.RELEASE</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.hsy.springcloud.v2</groupId>
+    <artifactId>springcloud</artifactId>
+    <version>2.0</version>
+
+    <url>https://github.com/shiyuan2he/springcloud2</url>
+    <licenses>
+        <license>
+            <name>Apache 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <email>shiyuan4work@126.com</email>
+            <name>heshiyuan</name>
+        </developer>
+    </developers>
+
+    <properties>
+
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.0</version>
+                <configuration>
+                    <fork>true</fork>
+                    <meminitial>512m</meminitial>
+                    <!-- 如果不够读者可以加大 -->
+                    <maxmem>4096m</maxmem>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
