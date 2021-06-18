@@ -6,11 +6,24 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="springcloud-eureka" />
+        <module name="netflix-eureka" />
+        <module name="netflix-config" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="springcloud-eureka" target="1.5" />
+      <module name="config" target="8" />
+      <module name="netflix-config" target="8" />
+      <module name="netflix-eureka" target="8" />
+      <module name="register" target="8" />
+      <module name="springcloud2" target="8" />
     </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="config" options="" />
+      <module name="netflix-config" options="-parameters" />
+      <module name="netflix-eureka" options="-parameters" />
+      <module name="register" options="" />
+    </option>
   </component>
 </project>
