@@ -5,12 +5,12 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.5.1</version>
+        <version>2.2.8.RELEASE</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.hsy.cloud</groupId>
-    <artifactId>springcloud2</artifactId>
+    <artifactId>micro-service-all</artifactId>
     <version>2.0</version>
     <packaging>pom</packaging>
     <url>https://github.com/shiyuan2he/springcloud2</url>
@@ -29,11 +29,15 @@
     <modules>
         <module>register</module>
         <module>config</module>
+        <module>api-consumer</module>
+        <module>api-producer</module>
+        <module>gateway</module>
+        <module>rpc</module>
     </modules>
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
-        <version.spring.cloud>2020.0.3</version.spring.cloud>
+        <version.spring.cloud>Hoxton.SR11</version.spring.cloud>
     </properties>
 
     <dependencyManagement>
@@ -47,23 +51,12 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-        </dependency>
-    </dependencies>
 
     <build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>2.5.1</version>
             </plugin>
         </plugins>
     </build>

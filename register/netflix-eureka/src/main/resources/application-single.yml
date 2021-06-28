@@ -1,0 +1,32 @@
+server:
+  port: 8000
+eureka:
+  instance:
+    # 服务端的实例名称
+    hostname: eureka
+    metadata-map:
+      version: 2.0
+      xx: oo
+  server:
+    # 关闭自我保护机制
+    enable-self-preservation: false
+    # 定时任务-剔除下线服务间隔时间，默认：60 * 1000 毫秒
+    eviction-interval-timer-in-ms: 30000
+    # 是否使用 readOnly缓存，默认开启
+    use-read-only-response-cache: true
+    # 多久更新一次只读缓存 默认 30 * 1000
+    response-cache-update-interval-ms: 30000
+    # 定时任务定期清除下线服务的间隔时间，可优化成30秒，response-cache-update-interval-ms一致 默认 180秒
+    response-cache-auto-expiration-in-seconds: 30
+    renewal-percent-threshold: 0.49
+  client:
+    # 是否将自己注册到Eureka Server,默认为true，由于当前就是server，
+    # 故而设置成false，表明该服务不会向eureka注册自己的信息
+    register-with-eureka: false
+    #是否从eureka server获取注册信息，表示自己就是注册中心， 我的职责是去维护服务实例，并不需要去检索服务,不需要调用其他服务
+    fetch-registry: false
+    service-url:
+      defaultZone: http://localhost:${server.port}/eureka/
+spring:
+  application:
+    name: EurekaServer

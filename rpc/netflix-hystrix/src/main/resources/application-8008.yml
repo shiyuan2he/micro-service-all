@@ -1,0 +1,101 @@
+eureka:
+  client:
+    register-with-eureka: true
+    #是否从eureka server获取注册信息，表示自己就是注册中心， 我的职责是去维护服务实例，并不需要去检索服务,不需要调用其他服务
+    fetch-registry: true
+    #设置服务注册中心的URL
+    service-url:
+      defaultZone: http://localhost:8000/eureka/
+    # 定期拉取注册中心实例间隔时间，可优化成5秒，防止新服务上线，调用方获取不到新服务，默认30秒
+    registry-fetch-interval-seconds: 5
+    # 新服务注册延迟，默认40秒，可优化成 10秒，防止新服务没有马上被发现
+    initial-instance-info-replication-interval-seconds: 10
+  instance:
+    # 心跳间隔,续约间隔 默认30秒
+    lease-renewal-interval-in-seconds: 5
+    # 超时时间，续约有效时间 默认90
+    lease-expiration-duration-in-seconds: 90
+server:
+  port: 8008
+spring:
+  application:
+    name: HystrixApplication
+
+#ribbon:
+#  NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+
+# 说明：请务必注意，从Spring Cloud Dalston开始，Feign默认是不开启Hystrix的。
+# 因此，如使用Dalston请务必额外设置属性：feign.hystrix.enabled=true，否则断路器不会生效。
+# 而，Spring Cloud Angel/Brixton/Camden中，Feign默认都是开启Hystrix的。无需设置该属性。
+feign:
+  hystrix:
+    enabled: true
+  client:
+    config:
+      default:
+        connectTimeout: 3000
+        readTimeout: 5000
+        #      apiServerClient:
+        #        connectTimeout: 3600000
+        #        readTimeout: 3600000
+
+# 熔断器配置
+hystrix:
+  dashboard:
+    # http://localhost:8008/actuator/hystrix.stream 解决监控不到的问题
+    proxy-stream-allow-list: localhost
+  threadpool:
+    default:
+      # 线程数默认值10适用于大部分情况（有时可以设置得更小），如果需要设置得更大，那有个基本得公式可以follow：
+      #requests per second at peak when healthy × 99th percentile latency in seconds + some breathing room
+      #每秒最大支撑的请求数 (99%平均响应时间 + 缓存值)
+      #比如：每秒能处理1000个请求，99%的请求响应时间是60ms，那么公式是：
+      #1000 （0.060+0.012）
+      #基本得原则时保持线程池尽可能小，他主要是为了释放压力，防止资源被阻塞。
+      #当一切都是正常的时候，线程池一般仅会有1到2个线程激活来提供服务
+      coreSize: 15 # 线程池coreSize,默认10
+      maxQueueSize: 10 # 请求等待队列 默认值：-1 如果使用正数，队列将从SynchronizeQueue改为LinkedBlockingQueue
+#      keepAliveTimeMinutes: 1 # 如果corePoolSize和maxPoolSize设成一样（默认实现）该设置无效
+  command:
+    default:
+#      groupKey: producer #表示所属的group，一个group共用线程池,默认值：getClass().getSimpleName();
+      execution:
+        isolation:
+          # 默认使用THREAD模式，以下几种可以使用SEMAPHORE模式：
+          #只想控制并发度
+          #外部的方法已经做了线程隔离
+          #调用的是本地方法或者可靠度非常高、耗时特别小的方法（如medis）
+#          strategy: SEMAPHORE # 隔离策略，有THREAD和SEMAPHORE
+          thread:
+#            interruptOnTimeout: true #是否打开超时线程中断
+            # 超时时间 (ReadTimeout+ConnectTimeout)*(MaxAutoRetries+1)*(MaxAutoRetriesNextServer+1)
+            # 默认值：1000
+            # 在THREAD模式下，达到超时时间，可以中断
+            # 在SEMAPHORE模式下，会等待执行完成后，再去判断是否超时
+            timeoutInMilliseconds: 5000
+#          semaphore:
+#            maxConcurrentRequests: 7 # 信号量最大并发度	SEMAPHORE模式有效，默认值：10
+#      circuitBreaker:
+#        errorThresholdPercentage: 50 # 失败率达到多少百分比后熔断 默认值：50 主要根据依赖重要性进行调整
+#        requestVolumeThreshold: 3 #默认20 ，熔断的阈值，如何user服务报错满足3次，熔断器就会打开，就算order之后请求正确的数据也不行。
+#        sleepWindowInMilliseconds: 5000 #默认5S ， 等5S之后熔断器会处于半开状态，然后下一次请求的正确和错误将决定熔断器是否真的关闭和是否继续打开
+
+#
+#配置这个是无效的，因为feign 也有一个超时时间的设置，
+#当然feign底层是 ribbon的封装，所以 直接配置ribbon，ribbon默认超时也是1秒。
+#所以这里都是强制要求，ribbon的超时时间要大于hystrix的超时时间，
+#否则 hystrix自定义的超时时间毫无意义。所以还得加个 ribbon超时时间设置
+ribbon:
+  # 连接超时时间，默认为1秒，该值会被FeignClient配置connectTimeout覆盖
+  ConnectTimeout: 3000 #请求连接的超时时间
+  # 读超时时间，默认为1秒，该值会被FeignClient配置readTimeout覆盖
+  ReadTimeout: 5000 #请求处理的超时时间
+  OkToRetryOnAllOperations: false #对所有操作请求都进行重试,默认false
+  MaxAutoRetries: 0     #对当前实例的重试次数，默认0
+  MaxAutoRetriesNextServer: 1 #对切换实例的重试次数，默认1
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
