@@ -1,12 +1,2 @@
-
 server:
   port: 9002
-spring:
-  application:
-    name: config-client
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: '*'

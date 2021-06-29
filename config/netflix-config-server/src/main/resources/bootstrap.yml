@@ -26,7 +26,7 @@ spring:
         git:
           uri: https://github.com/shiyuan2he/micro-service-all.git
           search-paths: config/repo
-          username: shiyuan2he
-          password: itkuangren945
+          username: aa
+          password: bb
           force-pull: true
       label: master
