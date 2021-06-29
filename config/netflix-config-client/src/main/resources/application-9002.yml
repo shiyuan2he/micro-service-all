@@ -17,28 +17,13 @@ eureka:
     lease-expiration-duration-in-seconds: 90
     metadata-map:
       version: 1.0
-      xxoo: girl
 server:
-  port: 8004
+  port: 9002
 spring:
   application:
-    name: ProducerApplication
-  zipkin:
-    base-url: http://localhost:9411/
-    #采样比例1
-  sleuth:
-    sampler:
-      rate: 1
-  boot:
-    admin:
-      client:
-        url: http://localhost:8010
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: '*'
-  endpoint:
-    health:
-      show-details: always
+    name: config-client
+  cloud:
+    config:
+      uri: http://localhost:9001
+      profile: dev
+      label: master

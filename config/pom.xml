@@ -13,6 +13,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>netflix-config</module>
+        <module>netflix-config-server</module>
+        <module>netflix-config-client</module>
     </modules>
 </project>

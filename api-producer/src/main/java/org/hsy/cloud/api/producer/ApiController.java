@@ -1,5 +1,7 @@
 package org.hsy.cloud.api.producer;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +17,7 @@ import java.util.concurrent.TimeUnit;
 @RestController
 @RequestMapping("/api")
 public class ApiController {
+    Logger logger = LoggerFactory.getLogger(ApiController.class);
     @Value("${spring.application.name}")
     private String name;
 
@@ -29,7 +32,7 @@ public class ApiController {
         ret.put("hostname", name);
         ret.put("port", port);
         long end = System.currentTimeMillis();
-        System.out.println("sss=" + (end - start));
+        logger.info("sss=" + (end - start));
         return ret;
     }
 

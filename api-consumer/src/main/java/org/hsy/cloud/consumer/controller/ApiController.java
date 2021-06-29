@@ -1,9 +1,11 @@
 package org.hsy.cloud.consumer.controller;
 
+import org.hsy.cloud.consumer.rpc.ProducerApi;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,12 +21,21 @@ public class ApiController {
 
     @Value("${server.port}")
     private String port;
-
+    @Resource
+    private ProducerApi producerApi;
     @RequestMapping("/lb")
     public Map<String, String> loadBalance(){
         Map<String, String> ret = new HashMap<>(4);
         ret.put("hostname", name);
         ret.put("port", port);
+        return ret;
+    }
+
+    @RequestMapping("/consumer")
+    public Map<String, String> consumer(){
+        Map<String, String> ret = producerApi.loadBalance();
+        ret.put("consumer hostname", name);
+        ret.put("consumer port", port);
         return ret;
     }
 }

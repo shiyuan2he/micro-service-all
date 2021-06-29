@@ -17,28 +17,24 @@ eureka:
     lease-expiration-duration-in-seconds: 90
     metadata-map:
       version: 1.0
-      xxoo: girl
 server:
-  port: 8004
+  port: 8010
 spring:
   application:
-    name: ProducerApplication
-  zipkin:
-    base-url: http://localhost:9411/
-    #采样比例1
-  sleuth:
-    sampler:
-      rate: 1
+    name: admin
+  # 邮件设置
+  mail:
+    host: smtp.sina.com
+    port: 25
+    username: shiyuan4work@sina.com
+    password: heshiyuan1109
+    properties:
+      mail:
+        smpt:
+          auth: true
   boot:
     admin:
-      client:
-        url: http://localhost:8010
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: '*'
-  endpoint:
-    health:
-      show-details: always
+      notify:
+        mail:
+          from: shiyuan4work@sina.com
+          to: shiyuan4work@126.com

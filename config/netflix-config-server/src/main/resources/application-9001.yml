@@ -17,28 +17,18 @@ eureka:
     lease-expiration-duration-in-seconds: 90
     metadata-map:
       version: 1.0
-      xxoo: girl
 server:
-  port: 8004
+  port: 9001
 spring:
   application:
-    name: ProducerApplication
-  zipkin:
-    base-url: http://localhost:9411/
-    #采样比例1
-  sleuth:
-    sampler:
-      rate: 1
-  boot:
-    admin:
-      client:
-        url: http://localhost:8010
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: '*'
-  endpoint:
-    health:
-      show-details: always
+    name: config
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/shiyuan2he/springcloud2.git
+          search-paths: config/repo
+          username: shiyuan2he
+          password: itkuangren945
+          force-pull: true
+      label: master

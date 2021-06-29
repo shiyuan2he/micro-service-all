@@ -2,11 +2,8 @@ server:
   port: 8000
 eureka:
   instance:
-    # 服务端的实例名称
-    hostname: eureka
     metadata-map:
       version: 2.0
-      xx: oo
   server:
     # 关闭自我保护机制
     enable-self-preservation: false
@@ -29,4 +26,17 @@ eureka:
       defaultZone: http://localhost:${server.port}/eureka/
 spring:
   application:
-    name: EurekaServer
+    name: eureka
+#  boot:
+#    admin:
+#      client:
+#        url: http://localhost:8010
+
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: '*'
+#  endpoint:
+#    health:
+#      show-details: always

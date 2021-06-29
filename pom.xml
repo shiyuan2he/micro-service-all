@@ -33,6 +33,7 @@
         <module>api-producer</module>
         <module>gateway</module>
         <module>rpc</module>
+        <module>monitor</module>
     </modules>
     <properties>
         <maven.compiler.source>8</maven.compiler.source>

@@ -1,9 +1,8 @@
-package org.hsy.cloud.register;
+package org.hsy.cloud.config;
 
 import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 
 /**
