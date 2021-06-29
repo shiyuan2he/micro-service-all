@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ApiController {
 
-    @Value("${xxoo}")
+    @Value("${xxoo:000}")
     private String xxoo;
 
     @GetMapping("/config/info")

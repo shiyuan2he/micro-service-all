@@ -1,0 +1,32 @@
+eureka:
+  client:
+    register-with-eureka: true
+    #是否从eureka server获取注册信息，表示自己就是注册中心， 我的职责是去维护服务实例，并不需要去检索服务,不需要调用其他服务
+    fetch-registry: true
+    #设置服务注册中心的URL
+    service-url:
+      defaultZone: http://localhost:8000/eureka/
+    # 定期拉取注册中心实例间隔时间，可优化成5秒，防止新服务上线，调用方获取不到新服务，默认30秒
+    registry-fetch-interval-seconds: 5
+    # 新服务注册延迟，默认40秒，可优化成 10秒，防止新服务没有马上被发现
+    initial-instance-info-replication-interval-seconds: 10
+  instance:
+    # 心跳间隔,续约间隔 默认30秒
+    lease-renewal-interval-in-seconds: 5
+    # 超时时间，续约有效时间 默认90
+    lease-expiration-duration-in-seconds: 90
+    metadata-map:
+      version: 1.0
+spring:
+  application:
+    name: config
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/shiyuan2he/micro-service-all.git
+          search-paths: config/repo
+          username: shiyuan2he
+          password: itkuangren945
+          force-pull: true
+      label: master
