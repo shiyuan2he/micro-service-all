@@ -20,4 +20,9 @@ public class ProducerApiFallBack implements ProducerApi {
         ret.put("msg", "降级了呢");
         return ret;
     }
+
+    @Override
+    public Map<String, String> loadBalance2() {
+        return null;
+    }
 }

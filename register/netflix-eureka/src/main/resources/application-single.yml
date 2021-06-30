@@ -31,6 +31,12 @@ spring:
     user:
       name: admin
       password: 123456
+
+#新版本已弃用，引入security包后默认开启
+#security:
+#  basic:
+#    enabled: true
+
 #  boot:
 #    admin:
 #      client:

@@ -1,4 +1,4 @@
-package org.hsy.cloud.config;
+package org.hsy.cloud.eureka;
 
 import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;

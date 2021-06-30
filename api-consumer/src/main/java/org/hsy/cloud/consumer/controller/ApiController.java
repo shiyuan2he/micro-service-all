@@ -23,7 +23,7 @@ public class ApiController {
     private String port;
     @Resource
     private ProducerApi producerApi;
-    @RequestMapping("/lb")
+    @RequestMapping("/info")
     public Map<String, String> loadBalance(){
         Map<String, String> ret = new HashMap<>(4);
         ret.put("hostname", name);
@@ -33,7 +33,7 @@ public class ApiController {
 
     @RequestMapping("/consumer")
     public Map<String, String> consumer(){
-        Map<String, String> ret = producerApi.loadBalance();
+        Map<String, String> ret = producerApi.loadBalance2();
         ret.put("consumer hostname", name);
         ret.put("consumer port", port);
         return ret;
