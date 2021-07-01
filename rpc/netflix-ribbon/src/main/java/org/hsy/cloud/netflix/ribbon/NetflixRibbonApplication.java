@@ -16,7 +16,7 @@ import org.springframework.web.client.RestTemplate;
  */
 @SpringBootApplication
 @EnableEurekaClient
-@RibbonClient(name = "ProducerApplication", configuration = RuleConfig.class)
+@RibbonClient(name = "producer", configuration = RuleConfig.class)
 public class NetflixRibbonApplication {
 
     public static void main(String[] args) {

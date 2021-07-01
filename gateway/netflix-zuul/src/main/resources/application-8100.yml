@@ -21,7 +21,7 @@ server:
   port: 8100
 spring:
   application:
-    name: ZuulApplication
+    name: zuul
   zipkin:
     base-url: http://localhost:9411/
     #采样比例1
@@ -42,6 +42,8 @@ zuul:
     consumer:
       path: /consumer/**
       serviceId: consumer
+  # 敏感信息过滤
+  sensitive-headers:
 
 # zuul默认继承了hystrix，ribbon此处需要配置超时时间，覆盖默认的
 hystrix:

@@ -1,21 +1,20 @@
 package org.hsy.cloud.zuul.filter;
 
 import com.netflix.zuul.ZuulFilter;
-import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;
-import io.jmnarloch.spring.cloud.ribbon.support.RibbonFilterContextHolder;
-import org.springframework.cloud.netflix.zuul.filters.route.RibbonRoutingFilter;
 import org.springframework.cloud.netflix.zuul.filters.support.FilterConstants;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.http.HttpServletRequest;
-
 /**
  * @author heshiyuan
- * @date 2021/6/29 20:12
+ * @date 2021/6/30 16:54
  */
 @Component
-public class GrayFilter extends ZuulFilter {
+public class RoutingFilter extends ZuulFilter {
+    /**
+     * 请求路由到微服务时调用，用于构建发送给微服务的请求
+     * @return
+     */
     @Override
     public String filterType() {
         return FilterConstants.ROUTE_TYPE;
@@ -28,16 +27,11 @@ public class GrayFilter extends ZuulFilter {
 
     @Override
     public boolean shouldFilter() {
-        return true;
+        return false;
     }
 
     @Override
     public Object run() throws ZuulException {
-        HttpServletRequest request = RequestContext.getCurrentContext().getRequest();
-        String version = request.getHeader("version");
-        if(null!=version){
-            RibbonFilterContextHolder.getCurrentContext().add("version", version);
-        }
         return null;
     }
 }
